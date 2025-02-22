@@ -1,13 +1,14 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-interface CartItem {
+// Define the CartItem type
+export type CartItem = {
   id: string;
   name: string;
   price: number;
   quantity: number;
   imageUrl: string;
-}
+};
 
 interface CartState {
   items: CartItem[];

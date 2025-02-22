@@ -1,69 +1,54 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import type { CartItem } from "../store/cart";
 import { useCartStore } from "../store/cart";
+import ProductCard from "./ProductCard";
 
 // Sample products data (you can move this to a separate file later)
 const featuredProducts: Omit<CartItem, 'quantity'>[] = [
   {
     id: "1",
-    name: "Product 1",
+    name: "Premium Headphones",
     price: 99.99,
-    imageUrl: "/product1.jpg", // Add actual image URLs
+    imageUrl: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80", // Modern headphones
   },
   {
     id: "2",
-    name: "Product 2",
+    name: "Smart Watch",
     price: 149.99,
-    imageUrl: "/product2.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80", // Watch
   },
   {
     id: "3",
-    name: "Product 3",
+    name: "Wireless Speaker",
     price: 199.99,
-    imageUrl: "/product3.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&q=80", // Speaker
   },
 ];
 
 export default function LandingPage() {
   const { addToCart } = useCartStore();
 
-  return (
-    <div className="w-full min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+  const handleAddToCart = (product: Omit<CartItem, "quantity">) => {
+    addToCart({ ...product, quantity: 1 });
+  };
 
-      
+  return (
+    <div className="w-full min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">      
       {/* Featured Products */}
       <section className="max-w-7xl mx-auto p-8">
-        <h3 className="text-3xl font-bold text-center mb-12 relative">
-          Featured Products
-          <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-blue-600 rounded-full"></span>
-        </h3>
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-12 relative inline-block">
+            Featured Products
+            <span className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-1.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"></span>
+          </h3>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
           {featuredProducts.map((product) => (
-            <div key={product.id} 
-              className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
-            >
-              <div className="relative overflow-hidden">
-                <img
-                  src={product.imageUrl}
-                  alt={product.name}
-                  className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
-              </div>
-              <div className="p-6">
-                <h4 className="text-xl font-semibold mb-2">{product.name}</h4>
-                <p className="text-gray-600 text-lg font-medium mb-4">
-                  ${product.price.toFixed(2)}
-                </p>
-                <Button 
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors duration-200"
-                  onClick={() => addToCart(product)}
-                >
-                  Add to Cart
-                </Button>
-              </div>
-            </div>
+            <ProductCard
+              key={product.id}
+              product={product}
+              onAddToCart={handleAddToCart}
+            />
           ))}
         </div>
       </section>

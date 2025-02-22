@@ -1,5 +1,7 @@
 import Nav from "../../components/Nav";
+import Cart from "../../components/Cart";
 import "./globals.css";
+
 export default function RootLayout({
   children,
 }: {
@@ -9,10 +11,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Nav />
+        <Cart />
         {children}
       </body>
     </html>
   );
 }
-
-
