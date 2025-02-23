@@ -1,10 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import type { CartItem } from "../store/cart";
+import { Product } from '../types/product';
 
 interface ProductCardProps {
-  product: Omit<CartItem, 'quantity'>;
-  onAddToCart: (product: Omit<CartItem, 'quantity'>) => void;
+  product: Product;
+  onAddToCart: (product: Product) => void;
 }
 
 export default function ProductCard({ product, onAddToCart }: ProductCardProps) {
